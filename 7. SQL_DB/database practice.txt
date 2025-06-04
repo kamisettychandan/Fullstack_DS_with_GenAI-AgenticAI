@@ -1,0 +1,583 @@
+Database Practice:
+
+file contains practice code for creating database,table,inserting values
+Arithematic operator, comparison operator, logical operator, DELETE and DROP commands, LIKE,wildcard)
+
+
+---------------------------------------------------------------------------------------------------28 May
+
+mysql> select 10 + 20 ;
++---------+
+| 10 + 20 |
++---------+
+|      30 |
++---------+
+1 row in set (0.03 sec)
+
+mysql> select 10*20;
++-------+
+| 10*20 |
++-------+
+|   200 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select 10/5
+    -> select 10/5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select 10/5' at line 2
+mysql> \c
+mysql> select 10 / 5 ;
++--------+
+| 10 / 5 |
++--------+
+| 2.0000 |
++--------+
+1 row in set (0.02 sec)
+
+mysql> select 12%5;
++------+
+| 12%5 |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+mysql> show databases
+    -> SHOW DATABASES
+    -> show databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SHOW DATABASES
+show databases' at line 2
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.07 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> show Databases;    -- not case sensitive
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database practice;        # to create new database
+Query OK, 1 row affected (0.12 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases
+    -> \c
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| practice           |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use practice     -- we are asking it to use practice database from this line onwards
+Database changed
+mysql> use sys;
+Database changed
+mysql> use practice
+Database changed
+mysql> create table customers (ID int primary key,
+    -> name varvhar(100),
+    -> age int,
+    -> address varchar(200),
+    -> salary int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varvhar(100),
+age int,
+address varchar(200),
+salary int)' at line 2
+mysql> CREATE TABLE customers (
+    -> id INT,
+    -> name VARCHAR(100),
+    -> age INT,
+    -> address VARCHAR(200),
+    -> salary INT
+    -> );                /* SQL is not case sensitive butit is best preactice to wrte keyword and datatype in UPPERCASE to improve readiability and make code look clean. */
+Query OK, 0 rows affected (0.47 sec)
+
+mysql> INSERT INTO customers (1,'Ramesh',32,'Ahemedabad',2000),
+    -> (2,'Khilan',25,'Delhi',1500)
+    -> ,(3,'Kaushik',23,'Kota',2000),
+    -> (4,'Chaitali',25,'Mumbai',6500)'
+    '> ;
+    '>
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,'Ramesh',32,'Ahemedabad',2000),
+(2,'Khilan',25,'Delhi',1500)
+,(3,'Kaushik',23' at line 1
+mysql> INSERT INTO customers (id, name, age, address, salary) VALUES(1,’Ramesh’,32,’Ahmedabad,2000),
+    -> (2,’Khilan’,24,’Delhi’,1500),
+    -> (3,’Kaushik’,23,’Kota’,2000),
+    -> (4,’Chaitali’,25,’Mumbai’,6500),
+    -> (5,’Hardik’,27,’Bhopal’,8500),
+    -> (6,’Komal’,22,’MP’,4500),
+    -> (7,’Muffy’,24,’Indore’,10000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?Ramesh?,32,?Ahmedabad,2000),
+(2,?Khilan?,24,?Delhi?,1500),
+(3,?Kaushik?,23,?Kot' at line 1
+mysql> INSERT INTO customers  (id, name, age, address, salary)
+    -> VALUES(1,'Ramesh',32,'Ahmedabad',2000),
+    -> (2,'Khilan',24,'Delhi',1500),
+    -> (3,'Kaushik',23,'Kota',2000),
+    -> (4,'Chaitali',25,'Mumbai',6500),
+    -> (5,'Hardik',27,'Bhopal',8500),
+    -> (6,'Komal',22,'MP',4500),
+    -> (7,'Muffy',24,'Indore',10000);
+Query OK, 7 rows affected (0.19 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT *FROM customers;         -- show complete/all values
++------+----------+------+-----------+--------+
+| id   | name     | age  | address   | salary |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   32 | Ahmedabad |   2000 |
+|    2 | Khilan   |   24 | Delhi     |   1500 |
+|    3 | Kaushik  |   23 | Kota      |   2000 |
+|    4 | Chaitali |   25 | Mumbai    |   6500 |
+|    5 | Hardik   |   27 | Bhopal    |   8500 |
+|    6 | Komal    |   22 | MP        |   4500 |
+|    7 | Muffy    |   24 | Indore    |  10000 |
++------+----------+------+-----------+--------+
+7 rows in set (0.09 sec)
+
+mysql> SELECT * FROM customers WHERE salary > 5000 ;
++------+----------+------+---------+--------+
+| id   | name     | age  | address | salary |
++------+----------+------+---------+--------+
+|    4 | Chaitali |   25 | Mumbai  |   6500 |
+|    5 | Hardik   |   27 | Bhopal  |   8500 |
+|    7 | Muffy    |   24 | Indore  |  10000 |
++------+----------+------+---------+--------+
+3 rows in set (0.04 sec)
+
+mysql> SELECT *FROM customers WHERE salary=2000;
++------+---------+------+-----------+--------+
+| id   | name    | age  | address   | salary |
++------+---------+------+-----------+--------+
+|    1 | Ramesh  |   32 | Ahmedabad |   2000 |
+|    3 | Kaushik |   23 | Kota      |   2000 |
++------+---------+------+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customers WHERE salary != 2000 ;
++------+----------+------+---------+--------+
+| id   | name     | age  | address | salary |
++------+----------+------+---------+--------+
+|    2 | Khilan   |   24 | Delhi   |   1500 |
+|    4 | Chaitali |   25 | Mumbai  |   6500 |
+|    5 | Hardik   |   27 | Bhopal  |   8500 |
+|    6 | Komal    |   22 | MP      |   4500 |
+|    7 | Muffy    |   24 | Indore  |  10000 |
++------+----------+------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customers WHERE salary <> 2000;       -- work same as  !=
++------+----------+------+---------+--------+
+| id   | name     | age  | address | salary |
++------+----------+------+---------+--------+
+|    2 | Khilan   |   24 | Delhi   |   1500 |
+|    4 | Chaitali |   25 | Mumbai  |   6500 |
+|    5 | Hardik   |   27 | Bhopal  |   8500 |
+|    6 | Komal    |   22 | MP      |   4500 |
+|    7 | Muffy    |   24 | Indore  |  10000 |
++------+----------+------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE salary > 6500 ;
++------+--------+------+---------+--------+
+| id   | name   | age  | address | salary |
++------+--------+------+---------+--------+
+|    5 | Hardik |   27 | Bhopal  |   8500 |
+|    7 | Muffy  |   24 | Indore  |  10000 |
++------+--------+------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE salary >= 6500 ;
++------+----------+------+---------+--------+
+| id   | name     | age  | address | salary |
++------+----------+------+---------+--------+
+|    4 | Chaitali |   25 | Mumbai  |   6500 |
+|    5 | Hardik   |   27 | Bhopal  |   8500 |
+|    7 | Muffy    |   24 | Indore  |  10000 |
++------+----------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> -- SQL comparison operators
+mysql> SELECT * FROM customers WHERE age >= 25 AND salary >= 6500 ;       # add multiple condition each should satisfy
++------+----------+------+---------+--------+
+| id   | name     | age  | address | salary |
++------+----------+------+---------+--------+
+|    4 | Chaitali |   25 | Mumbai  |   6500 |
+|    5 | Hardik   |   27 | Bhopal  |   8500 |
++------+----------+------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM customers WHERE age >= 25 OR salary >= 6500 ;
++------+----------+------+-----------+--------+
+| id   | name     | age  | address   | salary |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   32 | Ahmedabad |   2000 |
+|    4 | Chaitali |   25 | Mumbai    |   6500 |
+|    5 | Hardik   |   27 | Bhopal    |   8500 |
+|    7 | Muffy    |   24 | Indore    |  10000 |
++------+----------+------+-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM customers WHERE age IS NOT NULL
+    ->  ;                                                 # all rows where age column value is not a null
++------+----------+------+-----------+--------+
+| id   | name     | age  | address   | salary |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   32 | Ahmedabad |   2000 |
+|    2 | Khilan   |   24 | Delhi     |   1500 |
+|    3 | Kaushik  |   23 | Kota      |   2000 |
+|    4 | Chaitali |   25 | Mumbai    |   6500 |
+|    5 | Hardik   |   27 | Bhopal    |   8500 |
+|    6 | Komal    |   22 | MP        |   4500 |
+|    7 | Muffy    |   24 | Indore    |  10000 |
++------+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM customers WHERE age IS NOT NULL
+    -> \c
+mysql>
+mysql> SELECT * FROM customers WHERE
+    -> name LIKE  'Ko%' ;
++------+-------+------+---------+--------+
+| id   | name  | age  | address | salary |
++------+-------+------+---------+--------+
+|    6 | Komal |   22 | MP      |   4500 |
++------+-------+------+---------+--------+
+1 row in set (0.07 sec)
+
+mysql> SELECT FROM customers WHERE age IN (25,27) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM customers WHERE age IN (25,27)' at line 1
+mysql> SELECT * FROM customers WHERE age IN (25,27);    # rows where 25 < age < 27
++------+----------+------+---------+--------+
+| id   | name     | age  | address | salary |
++------+----------+------+---------+--------+
+|    4 | Chaitali |   25 | Mumbai  |   6500 |
+|    5 | Hardik   |   27 | Bhopal  |   8500 |
++------+----------+------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customers;
++------+----------+------+-----------+--------+
+| id   | name     | age  | address   | salary |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   32 | Ahmedabad |   2000 |
+|    2 | Khilan   |   24 | Delhi     |   1500 |
+|    3 | Kaushik  |   23 | Kota      |   2000 |
+|    4 | Chaitali |   25 | Mumbai    |   6500 |
+|    5 | Hardik   |   27 | Bhopal    |   8500 |
+|    6 | Komal    |   22 | MP        |   4500 |
+|    7 | Muffy    |   24 | Indore    |  10000 |
++------+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE age BETWEEN 25 AND 27;       # rows where 25 < age < 27
++------+----------+------+---------+--------+
+| id   | name     | age  | address | salary |
++------+----------+------+---------+--------+
+|    4 | Chaitali |   25 | Mumbai  |   6500 |
+|    5 | Hardik   |   27 | Bhopal  |   8500 |
++------+----------+------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT age FROM customer;          # get specific column
+ERROR 1146 (42S02): Table 'practice.customer' doesn't exist
+mysql> SELECT age FROM customers;      # get specific column
++------+
+| age  |
++------+
+|   32 |
+|   24 |
+|   23 |
+|   25 |
+|   27 |
+|   22 |
+|   24 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customers WHERE age > ALL (SELECT age FROM customers WHERE salary > 6500);      /*i want the customer whose age is more than the age of customers whose salary is > 6500  */
++------+--------+------+-----------+--------+
+| id   | name   | age  | address   | salary |
++------+--------+------+-----------+--------+
+|    1 | Ramesh |   32 | Ahmedabad |   2000 |
++------+--------+------+-----------+--------+
+1 row in set (0.07 sec)
+
+mysql> SELECT *FROM customers WHERE age > Any (SELECT age FROM customers WHERE salary > 6500);      /*i want the customer whose age is more than the age of any of the customers whose salary is > 6500  */
++------+----------+------+-----------+--------+
+| id   | name     | age  | address   | salary |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   32 | Ahmedabad |   2000 |
+|    4 | Chaitali |   25 | Mumbai    |   6500 |
+|    5 | Hardik   |   27 | Bhopal    |   8500 |
++------+----------+------+-----------+--------+
+3 rows in set (0.04 sec)
+
+mysql> SELECT*FROM customers;
++------+----------+------+-----------+--------+
+| id   | name     | age  | address   | salary |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   32 | Ahmedabad |   2000 |
+|    2 | Khilan   |   24 | Delhi     |   1500 |
+|    3 | Kaushik  |   23 | Kota      |   2000 |
+|    4 | Chaitali |   25 | Mumbai    |   6500 |
+|    5 | Hardik   |   27 | Bhopal    |   8500 |
+|    6 | Komal    |   22 | MP        |   4500 |
+|    7 | Muffy    |   24 | Indore    |  10000 |
++------+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customers WHERE salary = 10000;    #SQL Boolean Expression
++------+-------+------+---------+--------+
+| id   | name  | age  | address | salary |
++------+-------+------+---------+--------+
+|    7 | Muffy |   24 | Indore  |  10000 |
++------+-------+------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT (15+6) AS ADDITION;    # SQL Numeric Expression
++----------+
+| ADDITION |
++----------+
+|       21 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS "RECORDS" FROM customers;      # SQL Numeric Expression
++---------+
+| RECORDS |
++---------+
+|       7 |
++---------+
+1 row in set (0.18 sec)
+
+mysql> SELECT CURRENT_TIMESTAMP;      # SQL Date Expression
++---------------------+
+| CURRENT_TIMESTAMP   |
++---------------------+
+| 2025-05-28 14:03:31 |
++---------------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT GETDATE() ;              # SQL Date Expressions
+ERROR 1305 (42000): FUNCTION practice.GETDATE does not exist
+mysql> SELECT GETDATE() ; ;             # SQL Date Expressions
+ERROR 1305 (42000): FUNCTION practice.GETDATE does not exist
+ERROR:
+No query specified
+
+mysql> /* GETDATE(); is not supported in MySQL , it is a command used in SQL server. */
+mysql>
+
+mysql> /* GETDATE(); is not supported in MySQL , it is a command used in SQL server. */
+mysql> SELECT AGE FROM customers WHERE EXISTS (SELECT age FROM customers WHERE salary>6500);
++------+
+| AGE  |
++------+
+|   32 |
+|   24 |
+|   23 |
+|   25 |
+|   27 |
+|   22 |
+|   24 |
++------+
+7 rows in set (0.06 sec)
+
+mysql> SELECT * FROM customers;
++------+----------+------+-----------+--------+
+| id   | name     | age  | address   | salary |
++------+----------+------+-----------+--------+
+|    1 | Ramesh   |   32 | Ahmedabad |   2000 |
+|    2 | Khilan   |   24 | Delhi     |   1500 |
+|    3 | Kaushik  |   23 | Kota      |   2000 |
+|    4 | Chaitali |   25 | Mumbai    |   6500 |
+|    5 | Hardik   |   27 | Bhopal    |   8500 |
+|    6 | Komal    |   22 | MP        |   4500 |
+|    7 | Muffy    |   24 | Indore    |  10000 |
++------+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> -- Drop or Delete Database
+mysql> DROP practice;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'practice' at line 1
+mysql> DROP DATABASE practice;
+Query OK, 1 row affected (0.33 sec)
+
+mysql> CREATE DATABASE NIT
+    -> ;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> USE NIT
+Database changed
+mysql> CREATE TABLE(ID, NAME);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(ID, NAME)' at line 1
+mysql> CREATE TABLE(
+    -> ID INT,
+    -> NAME VARCHAR(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(
+ID INT,
+NAME VARCHAR(20)
+)' at line 1
+mysql> CREATE TABLE STUDENTS(
+    -> ID INT,
+    -> NAME VARCHAR(20),
+    -> AGE INT,
+    -> MARKS INT
+    -> );                       # CREATING TABLE
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> INSERT INTO STUDENTS VALUES(1,'Sam',18,56),
+    -> (2,'Raunak',17,60);
+Query OK, 2 rows affected (0.10 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM STUDENTS;
++------+--------+------+-------+
+| ID   | NAME   | AGE  | MARKS |
++------+--------+------+-------+
+|    1 | Sam    |   18 |    56 |
+|    2 | Raunak |   17 |    60 |
++------+--------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE FROM STUDENT WHERE AGE = 60;
+ERROR 1146 (42S02): Table 'nit.student' doesn't exist
+mysql> DELETE *FROM STUDENTS WHERE AGE=56;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*FROM STUDENTS WHERE AGE=56' at line 1
+mysql> DELETE FROM STUDENTS WHERE AGE=60;               # DELETE SPECIFIC ROW
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT *FROM STUDENTS;
++------+--------+------+-------+
+| ID   | NAME   | AGE  | MARKS |
++------+--------+------+-------+
+|    1 | Sam    |   18 |    56 |
+|    2 | Raunak |   17 |    60 |
++------+--------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE FROM STUDENTS WHERE MARKS >=60;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> SELECT *FROM STUDENTS;
++------+------+------+-------+
+| ID   | NAME | AGE  | MARKS |
++------+------+------+-------+
+|    1 | Sam  |   18 |    56 |
++------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> DELETE STUDENTS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> DELETE TABLE STUDENTS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE STUDENTS' at line 1
+mysql> DELETE FROM STUDENTS;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT * FROM STUDENTS;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTS;
+mysql> /*  DROP- delete table,database etc, data can't retrive.
+   /*>     DELETE- remove specific row,entire table,etc.data can be retrived   */
+mysql>
+                                                                                          
+--------------------------------------------------------------------------------------------------29 May
+
+mysql> SELECT *FROM customers;
++----+----------+------+-----------+--------+
+| id | name     | age  | address   | salary |
++----+----------+------+-----------+--------+
+|  1 | Ramesh   |   32 | Ahmedabad |   2000 |
+|  2 | Kilan    |   25 | Delhi     |   1500 |
+|  3 | Kaushik  |   23 | Kota      |   2000 |
+|  4 | Chaitali |   25 | Mumbai    |   6500 |
+|  5 | Hardik   |   27 | Bhopal    |   8500 |
+|  6 | Komal    |   22 | MP        |   4500 |
+|  7 | Muffy    |   24 | Indore    |  10000 |
++----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> ------------------------------------------------------------------------------------------------------------------------
+    -> Wildcard (%,_) with LIKE
+    -> \c
+mysql> SELECT *FROM customers WHERE salary LIKE '200%';
++----+---------+------+-----------+--------+
+| id | name    | age  | address   | salary |
++----+---------+------+-----------+--------+
+|  1 | Ramesh  |   32 | Ahmedabad |   2000 |
+|  3 | Kaushik |   23 | Kota      |   2000 |
++----+---------+------+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql>  SELECT *FROM customers WHERE salary LIKE '%50%';
++----+----------+------+---------+--------+
+| id | name     | age  | address | salary |
++----+----------+------+---------+--------+
+|  2 | Kilan    |   25 | Delhi   |   1500 |
+|  4 | Chaitali |   25 | Mumbai  |   6500 |
+|  5 | Hardik   |   27 | Bhopal  |   8500 |
+|  6 | Komal    |   22 | MP      |   4500 |
++----+----------+------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> ^C
+mysql>  SELECT *FROM customers WHERE salary LIKE '%0000';
++----+-------+------+---------+--------+
+| id | name  | age  | address | salary |
++----+-------+------+---------+--------+
+|  7 | Muffy |   24 | Indore  |  10000 |
++----+-------+------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT *FROM customers WHERE salary LIKE '_500';
++----+----------+------+---------+--------+
+| id | name     | age  | address | salary |
++----+----------+------+---------+--------+
+|  2 | Kilan    |   25 | Delhi   |   1500 |
+|  4 | Chaitali |   25 | Mumbai  |   6500 |
+|  5 | Hardik   |   27 | Bhopal  |   8500 |
+|  6 | Komal    |   22 | MP      |   4500 |
++----+----------+------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT *FROM customers WHERE salary LIKE '_00';       # it will be empty set as there is no three digit value; _-single value;%-multiplt values
+Empty set (0.00 sec)
