@@ -12,4 +12,4 @@ A beginner-friendly project that explores the fundamentals of Fullstack Data Sci
 - Matplotlib Library
 - SQL Database
 - Statistics
-- Projects
+- EDA LLM Projects
