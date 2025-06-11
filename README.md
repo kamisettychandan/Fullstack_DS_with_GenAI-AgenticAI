@@ -13,3 +13,4 @@ A beginner-friendly project that explores the fundamentals of Fullstack Data Sci
 - SQL Database
 - Statistics
 - EDA LLM Projects
+- Machine Learning
